@@ -1,72 +1,109 @@
-// afficher produit id
-const queryString_url_id = window.location.search;
-console.log(queryString_url_id);
-
-
-// extraire l'id
-const urlSearchParams = new URLSearchParams(queryString_url_id);
-console.log(urlSearchParams);
-
-const id = urlSearchParams.get("id");
-console.log(id);
+// Récuperer l'id du produit
+let params = (new URL(document.location)).searchParams;
+let product_id = params.get('id');
+console.log(product_id);
 
 // afficher un produit(un objet) qui à été Sélectionné par l'id
-fetch(`http://localhost:3000/api/products/${id}`)
-.then((product) => product.json()) 
-.then((product) => {});
+fetch(`http://localhost:3000/api/products/${product_id}`)
+.then((response) => response.json()) 
+.then((kanap) => {console.log(kanap);
 
-// Déclarer les variables nécessaires
-let image = document.querySelector(".item__img");
-let title = document.querySelector("#title");
-let price = document.querySelector("#price");
-let description = document.querySelector("#description");
-let color = document.querySelector("#colors");
+displayProductInfos(kanap)
+
+});
+
+// Afficher les informations du produit avec une boucle for pour les couleurs
+function displayProductInfos(product) {
+
+// Déclaration des selectors
+let product_img = document.querySelector(".item__img");
+let product_title = document.querySelector("#title");
+let product_price = document.querySelector("#price");
+let product_description = document.querySelector("#description");
+let product_colors = document.querySelector("#colors");
 let quantity = document.querySelector("#quantity");
-let addToCart = document.querySelector("#addToCart");
+let color_miss = document.querySelector(".item__content");
 
-//Sélection de la classe où on injecte le code html
-const positionElmt = document.querySelector(".item")
-console.log(positionElmt);
-
-
-
-
-              <div class="item__content__description">
-                <p class="item__content__description__title">Description :</p>
-                <p id="description"><!-- Dis enim malesuada risus sapien gravida nulla nisl arcu. --></p>
-              </div>
-
-              <div class="item__content__settings">
-                <div class="item__content__settings__color">
-                  <label for="color-select">Choisir une couleur :</label>
-                  <select name="color-select" id="colors">
-                      <option value="">--SVP, choisissez une couleur --</option>
-<!--                       <option value="vert">vert</option>
-                      <option value="blanc">blanc</option> -->
-                  </select>
-                </div>
-
-                <div class="item__content__settings__quantity">
-                  <label for="itemQuantity">Nombre d'article(s) (1-100) :</label>
-                  <input type="number" name="itemQuantity" min="1" max="100" value="0" id="quantity">
-                </div>
-              </div>
-
-              <div class="item__content__addButton">
-                <button id="addToCart">Ajouter au panier</button>
-              </div>
-
-            </div>
-          </article>
-
-
-function productAdded(){
-  document.querySelector(".product__added").textContent = `Votre commande viens d'etre ajoutée au panier`;
-  style()
+  product_img.innerHTML += `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
+  product_title.innerHTML += `<h1 id="title"> ${product.name} </h1>`;
+  product_price.innerHTML += `<span id="price"> ${product.price} </span>`;
+  product_description.innerHTML += `<p id="description"> ${product.description} </p>`;
+  for (let i = 0; i < product.colors.length; i++) {
+    product_colors.innerHTML += `<option value="${product.colors[i]}">${product.colors[i]}</option>`;
+  }
 }
 
-function excessQuantity(){
-  document.querySelector(".excess__quantity").textContent = "La quantité total d'un même article ne peux dépasser 100";
-  styleError()
+
+
+
+// créer une alerte pour l'Utilisateur
+//alert("Bonjour")
+
+// on envoie les produits sélectionnés dans le LocalStorage au clic sur le bouton Ajouter au panier
+let btn = document.querySelector("#addToCart");
+
+btn.addEventListener("click", () => {
+  let couleurChoisie = document.querySelector("#colors").value; // récupère la couleur sélectionnée
+
+  let quantity = document.querySelector("#quantity").value; // récupère de la quantité saisie
+  
+
+  
+  if (
+    quantity == undefined ||      //  si la quantité n'est pas défini
+    quantity == null ||           //  si la quantité est égale à null (fausse)
+    quantity < 1 ||               //  si la quantité est inférieure à 1
+    quantity > 100 ||             //  si la quantité est supérieure à 100
+    couleurChoisie === "" ||      //  si la couleur n'a pas été choisie
+    couleurChoisie == null ||     //  si la couleur est égale à null
+    couleurChoisie == undefined   //  si la couleur n'est pas défini
+  )
+  {
+    alert(
+      "Veuillez choisir une couleur et une quantité comprise entre 1 et 100 " // le message d'alerte s'affiche
+    );
+  } else {
+    alert("votre produit à été ajouté au panier");
+  //window.location.href = "cart.html"; //renvoie sur la page panier (cart.html)
+
+  // création nouveau produit avec les 3 références
+  let newProduct = {
+    id: product_id,
+    quantity: Number(quantity),
+    color: couleurChoisie,
+  };
+
+    
+
+//
+// Le Local Storage
+// Stocker les valeurs dans le Local Storage
+//
+//
+
+// Déclaration de la variable basket dans laquelle on met les keys et les valeurs qui sont dans le LocalStorage 
+let basket = JSON.parse(localStorage.getItem("produits")); 
+// JSON.parse c'est pour convertir les données au format JSON qui sont dans le Local Storage en objet js
+console.log(basket);
+
+// S'il y a déja des produits d'enregistré dans le Local Storage
+if (basket) {
+  basket.push(newProduct);
+  localStorage.setItem("produits", JSON.stringify(basket));
+  console.log(basket);
 }
-//------------------------------------------------------------
+
+// S'il n'y a pas de produit d'enregistré dans le Local Storage
+else{
+  basket = [];
+  basket.push(newProduct);
+  localStorage.setItem("produits", JSON.stringify(basket));
+
+  console.log(basket);
+}
+
+}});
+
+// JSON dans le Local Storage
+//produits: [{"id":"77711f0e466b4ddf953f677d30b0efc9","quantity":1,"color":"Navy"}];
+
