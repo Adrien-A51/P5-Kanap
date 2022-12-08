@@ -28,19 +28,8 @@ let addToCart = document.querySelector("#addToCart");
 const positionElmt = document.querySelector(".item")
 console.log(positionElmt);
 
-// la structure html
-const structureProduit = `
 
-<article>
-            <div class="item__img">
-              <img src="${id}" alt="Photographie d'un canapé">
-            </div>
-            <div class="item__content">
 
-              <div class="item__content__titlePrice">
-                <h1 id="title">${id}</h1>
-                <p>Prix : <span id="price"><!-- 42 --></span>€</p>
-              </div>
 
               <div class="item__content__description">
                 <p class="item__content__description__title">Description :</p>
@@ -70,6 +59,14 @@ const structureProduit = `
             </div>
           </article>
 
-`;
 
-positionElmt.innerHTML = structureProduit;
+function productAdded(){
+  document.querySelector(".product__added").textContent = `Votre commande viens d'etre ajoutée au panier`;
+  style()
+}
+
+function excessQuantity(){
+  document.querySelector(".excess__quantity").textContent = "La quantité total d'un même article ne peux dépasser 100";
+  styleError()
+}
+//------------------------------------------------------------
