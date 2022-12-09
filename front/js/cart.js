@@ -27,13 +27,12 @@ for (let i = 0; i < basket.length; i++ ) {
 
   // fetch product_id
   let params = (new URL(document.location)).searchParams;
-  let product_id = params.get('id');
+  let product_id = params.get(basket);
 
   // afficher un produit(un objet) qui à été Sélectionné par l'id
 fetch(`http://localhost:3000/api/products/${product_id}`)
-.then((response) => response.json()) 
-.then((kanap) => {console.log(kanap);
-
+.then((products) => products.json())
+.then((products) => {console.log(products);
 });
     
     structureProduitPanier = structureProduitPanier + `
