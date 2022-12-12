@@ -25,44 +25,6 @@ let structureProduitPanier = "";
 //boucle for pour ajouter les produits aux panier
 for (let i = 0; i < basket.length; i++ ) {
 
-  // fetch product_id
-  let params = (new URL(document.location)).searchParams;
-  let product_id = params.get(basket);
-
-  // afficher un produit(un objet) qui à été Sélectionné par l'id
-fetch(`http://localhost:3000/api/products/${product_id}`)
-.then((products) => products.json())
-.then((products) => {console.log(products);
-});
-    
-    structureProduitPanier = structureProduitPanier + `
-
-    <section id="cart__items">   
-      <article class="cart__item" data-id="{product-ID}" data-color="{product-color}">
-                <div class="cart__item__img">
-                  <img src="${basket[i].imageUrl}" alt="${basket[i].altTxt}">
-                </div>
-                <div class="cart__item__content">
-                  <div class="cart__item__content__description">
-                    <h2>${basket[i].name}</h2>
-                    <p>${basket[i].color}</p>
-                    <p>${basket[i].price}€</p>
-                  </div>
-                  <div class="cart__item__content__settings">
-                    <div class="cart__item__content__settings__quantity">
-                      <p>quantité </p>
-                      <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${basket[i].quantity}">
-                    </div>
-                    <div class="cart__item__content__settings__delete">
-                      <p class="deleteItem">Supprimer</p>
-                    </div>
-                  </div>
-                </div>
-      </article>   
-    </section> 
-            `;
-  }
-  // ajout du code html dans la page panier
-  basket_container.innerHTML = structureProduitPanier;
           
+}
 }
