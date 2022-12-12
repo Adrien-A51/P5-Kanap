@@ -3,8 +3,6 @@ let basket = JSON.parse(localStorage.getItem("produits"));
 // JSON.parse c'est pour convertir les données au format JSON qui sont dans le Local Storage en objet js
 
 //----------------------------------- Afficher les produits dans le panier ------------------------------------------------
-// Sélection de la classe où Mettre le code html
-const basket_container = document.querySelector("#cart__items"); 
 
 // si le panier est vide -> affiche le panier est vide
 // basket === null - basket est strictement égal à null
@@ -41,7 +39,7 @@ let kanapData = [];
    const kanap = async () => {
       await kanapFetch();
 
-      document.getElementById("cart__items").innerHTML = `                
+      document.getElementById("cart__items").innerHTML = `
       <div class="cart__item__img">
         <img src="${kanapData[i].imageUrl}" alt="${kanapData[i].altTxt}">
       </div>
