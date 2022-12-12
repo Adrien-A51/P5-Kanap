@@ -21,8 +21,7 @@ let product_title = document.querySelector("#title");
 let product_price = document.querySelector("#price");
 let product_description = document.querySelector("#description");
 let product_colors = document.querySelector("#colors");
-let quantity = document.querySelector("#quantity");
-let color_miss = document.querySelector(".item__content");
+
 
   product_img.innerHTML += `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
   product_title.innerHTML += `<h1 id="title"> ${product.name} </h1>`;

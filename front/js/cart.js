@@ -25,6 +25,48 @@ let structureProduitPanier = "";
 //boucle for pour ajouter les produits aux panier
 for (let i = 0; i < basket.length; i++ ) {
 
-          
+// Création du tableau
+let kanapData = [];
+
+// fetch
+  async function kanapFetch() {
+    await fetch("http://localhost:3000/api/products")
+      .then((res) => res.json())
+      .then((promise) => {
+        kanapData = promise;
+        console.log(kanapData);
+
+   });
+  };
+   const kanap = async () => {
+      await kanapFetch();
+
+      document.getElementById("cart__items").innerHTML = `                
+      <div class="cart__item__img">
+        <img src="${kanapData[i].imageUrl}" alt="${kanapData[i].altTxt}">
+      </div>
+      <div class="cart__item__content">
+                  <div class="cart__item__content__description">
+                    <h2>${kanapData[i].name}</h2>
+                    <p>${kanapData[i].colors[i]}</p>
+                    <p>${kanapData[i].price} €</p>
+                  </div>
+                  <div class="cart__item__content__settings">
+                    <div class="cart__item__content__settings__quantity">
+                      <p>Quantité : </p>
+                      <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${kanapData[i].quantity}">
+                    </div>
+                    <div class="cart__item__content__settings__delete">
+                      <p class="deleteItem">Supprimer</p>
+                    </div>
+                  </div>
+        </div>
+      
+      
+      `
+   };
+
+   kanap();
+
 }
 }
