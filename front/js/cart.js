@@ -28,9 +28,10 @@ for (let i = 0; i < basket.length; i++ ) {
 // Création du tableau
 let kanapData = [];
 
+
 // fetch
-  async function kanapFetch() {
-    await fetch("http://localhost:3000/api/products")
+  async function kanapFetch(id) {
+    await fetch(`http://localhost:3000/api/products/` + id)
       .then((res) => res.json())
       .then((promise) => {
         kanapData = promise;
@@ -39,29 +40,31 @@ let kanapData = [];
    });
   };
    const kanap = async () => {
-      await kanapFetch();
+      await kanapFetch(basket[i].id);
 
-      document.getElementById("cart__items").innerHTML = `
+      document.getElementById("cart__items").innerHTML += 
+      `
+<article class="cart__item" data-id="${basket[i].id}" data-color="${basket[i].color}">
       <div class="cart__item__img">
-        <img src="${kanapData[i].imageUrl}" alt="${kanapData[i].altTxt}">
+        <img src="${kanapData.imageUrl}" alt="${kanapData.altTxt}">
       </div>
       <div class="cart__item__content">
                   <div class="cart__item__content__description">
-                    <h2>${kanapData[i].name}</h2>
-                    <p>${kanapData[i].colors[i]}</p>
-                    <p>${kanapData[i].price} €</p>
+                    <h2>${kanapData.name}</h2>
+                    <p>${basket[i].color}</p>
+                    <p>${kanapData.price} €</p>
                   </div>
                   <div class="cart__item__content__settings">
                     <div class="cart__item__content__settings__quantity">
                       <p>Quantité : </p>
-                      <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${kanapData[i].quantity}">
+                      <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${basket[i].quantity}">
                     </div>
                     <div class="cart__item__content__settings__delete">
                       <p class="deleteItem">Supprimer</p>
                     </div>
                   </div>
         </div>
-      
+</article>
       
       `
    };
@@ -70,3 +73,33 @@ let kanapData = [];
 
 }
 }
+
+//----------------------------------- Supprimer un produit dans le panier ------------------------------------------------
+
+//let Supprimer_Produit = document.getElementsByClassName("deleteItem");
+//console.log(Supprimer_Produit);
+
+
+let deleteItem = document.querySelectorAll(".deleteItem");
+console.log(deleteItem);
+
+
+
+
+if (deleteItem.length != 0) {
+  for (let i = 0; i < deleteItem.length; i++) {
+    deleteItem.addEventListener("click", () => {
+
+        let iDdeleteItem = basket[i].id;
+        let ColordeleteItem = basket[i].color;
+        //console.log(iDdeleteItem);
+        //console.log(ColordeleteItem);
+        basket = basket.filter(el => el.id !== iDdeleteItem && el.color !== ColordeleteItem);
+
+        event.target.closest("article").remove();
+        alert("Produit Supprimé");
+
+      })};
+
+
+};

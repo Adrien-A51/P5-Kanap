@@ -22,3 +22,5 @@ function displayProducts(products) {
     </a>`;
   }
 }
+
+// + Concaténation 
