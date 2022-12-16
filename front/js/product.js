@@ -1,7 +1,6 @@
 // Récuperer l'id du produit
 let params = (new URL(document.location)).searchParams;
 let product_id = params.get('id');
-console.log(product_id);
 
 // afficher un produit(un objet) qui à été Sélectionné par l'id
 fetch(`http://localhost:3000/api/products/${product_id}`)
@@ -89,7 +88,6 @@ console.log(basket);
 if (basket) {
   basket.push(newProduct);
   localStorage.setItem("produits", JSON.stringify(basket));
-  console.log(basket);
 }
 
 // S'il n'y a pas de produit d'enregistré dans le Local Storage
@@ -98,7 +96,6 @@ else{
   basket.push(newProduct);
   localStorage.setItem("produits", JSON.stringify(basket));
 
-  console.log(basket);
 }
 
 }});
