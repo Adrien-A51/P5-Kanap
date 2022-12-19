@@ -105,32 +105,3 @@ function deleteProduct() {
 
   };
 };
-
-
-
-
-
-
-
-
-
-
-/*
-if (deleteItem.length != 0) {
-  for (let i = 0; i < deleteItem.length; i++) {
-    deleteItem[i].addEventListener("click", () => {
-
-        let iDdeleteItem = basket[i].id;
-        let ColordeleteItem = basket[i].color;
-        //console.log(iDdeleteItem);
-        //console.log(ColordeleteItem);
-        basket = basket.filter(el => el.id !== iDdeleteItem && el.color !== ColordeleteItem);
-
-        event.target.closest("article").remove();
-        alert("Produit Supprimé");
-
-      })};
-
-
-};
-*/
