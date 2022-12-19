@@ -57,7 +57,8 @@ let kanapData = [];
                   <div class="cart__item__content__settings">
                     <div class="cart__item__content__settings__quantity">
                       <p>Quantité : </p>
-                      <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${basket[i].quantity}">
+<input type="number" class="itemQuantity" 
+name="itemQuantity" min="1" max="100" value="${basket[i].quantity}">
                     </div>
                     <div class="cart__item__content__settings__delete">
                       <p class="deleteItem">Supprimer</p>
@@ -76,16 +77,51 @@ let kanapData = [];
 //----------------------------------- Supprimer un produit dans le panier ------------------------------------------------
 
 //let Supprimer_Produit = document.getElementsByClassName("deleteItem");
-//console.log(Supprimer_Produit);
+
+
+
+function deleteProduct() {
+  let ficheProduit = document.getElementsByClassName("cart__item");
+  let ficheProduitArray = Array.from(ficheProduit);
+  //Boucle for sur les cartes produits
+  for (let i = 0; i < ficheProduitArray.length; i++) {
+    // Définition de la variable deleteButton
+    const deleteButton = ficheProduitArray[i].getElementsByClassName("deleteItem")[0];
+    // Ecoute de l'évènement "click" sur les deleteButtons
+    deleteButton.addEventListener("click", function (dlt) {
+      //Récupération du localStorage
+      let produitArray = JSON.parse(localStorage.getItem("produits"));
+
+      //Définition des variables id & color
+      let id = Number(ficheProduitArray[i].getAttribute("data-id"));
+      let color = ficheProduitArray[i].getAttribute("data-color");
+
+      // Retrait du  produit concerné du localStorage & page reload
+      const newProductArray = produitArray.filter(produit => produit.id != id && produit.color != color);
+      localStorage.setItem("produits", JSON.stringify(newProductArray));
+      window.location.reload();
+
+    });
+
+  };
+};
 
 
 
 
 
 
+
+
+
+
+/*
+if (deleteItem.length != 0) {
   for (let i = 0; i < deleteItem.length; i++) {
-    deleteItem.addEventListener("click", () => {
+    deleteItem[i].addEventListener("click", () => {
 
+        let iDdeleteItem = basket[i].id;
+        let ColordeleteItem = basket[i].color;
         //console.log(iDdeleteItem);
         //console.log(ColordeleteItem);
         basket = basket.filter(el => el.id !== iDdeleteItem && el.color !== ColordeleteItem);
@@ -96,3 +132,5 @@ let kanapData = [];
       })};
 
 
+};
+*/
