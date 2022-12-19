@@ -65,7 +65,6 @@ let kanapData = [];
                   </div>
         </div>
 </article>
-      
       `
    };
 
@@ -80,18 +79,13 @@ let kanapData = [];
 //console.log(Supprimer_Produit);
 
 
-let deleteItem = document.querySelectorAll(".deleteItem");
-console.log(deleteItem);
 
 
 
 
-if (deleteItem.length != 0) {
   for (let i = 0; i < deleteItem.length; i++) {
     deleteItem.addEventListener("click", () => {
 
-        let iDdeleteItem = basket[i].id;
-        let ColordeleteItem = basket[i].color;
         //console.log(iDdeleteItem);
         //console.log(ColordeleteItem);
         basket = basket.filter(el => el.id !== iDdeleteItem && el.color !== ColordeleteItem);
@@ -102,4 +96,3 @@ if (deleteItem.length != 0) {
       })};
 
 
-};
