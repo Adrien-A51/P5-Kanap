@@ -25,10 +25,6 @@ let structureProduitPanier = "";
 //boucle for pour ajouter les produits aux panier
 for (let i = 0; i < basket.length; i++ ) {
 
-// Création du tableau
-let kanapData = [];
-
-
 // fetch
   async function kanapFetch(id) {
     await fetch(`http://localhost:3000/api/products/` + id)
