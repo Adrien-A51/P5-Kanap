@@ -1,5 +1,6 @@
 // Déclaration de la variable basket dans laquelle on met les keys et les valeurs qui sont dans le LocalStorage 
 let basket = JSON.parse(localStorage.getItem("produits")); 
+console.log(basket);
 // JSON.parse c'est pour convertir les données au format JSON qui sont dans le Local Storage en objet js
 
 //----------------------------------- Afficher les produits dans le panier ------------------------------------------------
@@ -25,16 +26,21 @@ let structureProduitPanier = "";
 //boucle for pour ajouter les produits aux panier
 for (let i = 0; i < basket.length; i++ ) {
 
+let kanapData = [];
+
+
 // fetch
   async function kanapFetch(id) {
     await fetch(`http://localhost:3000/api/products/` + id)
       .then((res) => res.json())
       .then((promise) => {
         kanapData = promise;
-        console.log(kanapData);
 
    });
   };
+
+
+
    const kanap = async () => {
       await kanapFetch(basket[i].id);
 
@@ -72,10 +78,10 @@ name="itemQuantity" min="1" max="100" value="${basket[i].quantity}">
 
 //----------------------------------- Supprimer un produit dans le panier ------------------------------------------------
 
-let deleteItem = document.getElementsByClassName("deleteItem");
-console.log(deleteItem);
+//let deleteItem = document.getElementsByClassName("deleteItem");
+//console.log(deleteItem);
 
-
+/*
 if (deleteItem.length != 0) {
   for (let i = 0; i < deleteItem.length; i++) {
     deleteItem[i].addEventListener("click", () => {
@@ -91,3 +97,21 @@ if (deleteItem.length != 0) {
 
       })};
 };
+*/
+
+
+//----------------------------------- Calcul du prix total des produits dans le panier ------------------------------------------------
+
+// Variable prix total
+let CalculPrixTotal = [];
+
+
+// Aller chercher les prix des produits dans le panier
+for (let i = 0; i < kanapData.length; i++) {
+  console.log(kanapData);
+};
+
+
+//
+// Video ytb produitEnregisterDansLocalStorage = basket
+//
