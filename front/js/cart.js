@@ -1,6 +1,5 @@
 // Déclaration de la variable basket dans laquelle on met les keys et les valeurs qui sont dans le LocalStorage 
 let basket = JSON.parse(localStorage.getItem("produits")); 
-console.log(basket);
 // JSON.parse c'est pour convertir les données au format JSON qui sont dans le Local Storage en objet js
 
 //----------------------------------- Afficher les produits dans le panier ------------------------------------------------
@@ -27,7 +26,6 @@ let structureProduitPanier = "";
 for (let i = 0; i < basket.length; i++ ) {
 
 let kanapData = [];
-
 
 // fetch
   async function kanapFetch(id) {
@@ -73,18 +71,8 @@ name="itemQuantity" min="1" max="100" value="${basket[i].quantity}">
 
    kanap();
 
-}
-}
 
-//----------------------------------- Supprimer un produit dans le panier ------------------------------------------------
-
-//let deleteItem = document.getElementsByClassName("deleteItem");
-//console.log(deleteItem);
-
-/*
 if (deleteItem.length != 0) {
-  for (let i = 0; i < deleteItem.length; i++) {
-    deleteItem[i].addEventListener("click", () => {
 
         let iDdeleteItem = basket[i].id;
         let ColordeleteItem = basket[i].color;
