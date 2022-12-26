@@ -1,16 +1,16 @@
-// Sélectionner la class items
+// Sélection de la class items
 let items_container = document.querySelector(".items");
 
-// Récupérer les données de l'api
+// Récupération des données de l'API
 fetch(`http://localhost:3000/api/products`)
   .then((products) => products.json())
   .then((products) => {console.log(products);
-    displayProducts(products);
+    Produit(products);
   });
 
 //Création des élèments + rajout des données dans ces balises
-function displayProducts(products) {
-  items_container.innerHTML = "";
+function Produit(products) {
+  
   for (let i = 0; i < products.length; i++) {
     items_container.innerHTML += `
     <a href="./product.html?id=${products[i]._id}"> 

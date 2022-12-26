@@ -34,12 +34,14 @@ let product_colors = document.querySelector("#colors");
 
 
 
+
 // créer une alerte pour l'Utilisateur
 //alert("Bonjour")
 
-// on envoie les produits sélectionnés dans le LocalStorage au clic sur le bouton Ajouter au panier
+// Envoi des produits sélectionnés dans le LocalStorage au clic sur le bouton Ajouter au panier
 let btn = document.querySelector("#addToCart");
 
+// Événement click
 btn.addEventListener("click", () => {
   let couleurChoisie = document.querySelector("#colors").value; // récupère la couleur sélectionnée
 

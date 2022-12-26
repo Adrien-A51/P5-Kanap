@@ -4,7 +4,7 @@ let basket = JSON.parse(localStorage.getItem("produits"));
 
 //----------------------------------- Afficher les produits dans le panier ------------------------------------------------
 // Sélection de la classe où Mettre le code html
-const basket_container = document.querySelector("#cart__items"); 
+let basket_container = document.querySelector("#cart__items"); 
 
 // si le panier est vide -> affiche le panier est vide
 // basket === null - basket est strictement égal à null
@@ -25,79 +25,123 @@ let structureProduitPanier = "";
 //boucle for pour ajouter les produits aux panier
 for (let i = 0; i < basket.length; i++ ) {
 
-let kanapData = [];
 
-// fetch
-  async function kanapFetch(id) {
-    await fetch(`http://localhost:3000/api/products/` + id)
-      .then((res) => res.json())
-      .then((promise) => {
-        kanapData = promise;
-
-   });
-  };
+  let kanapData = [];
 
 
-
-   const kanap = async () => {
-      await kanapFetch(basket[i].id);
-
-      document.getElementById("cart__items").innerHTML += 
-      `
-<article class="cart__item" data-id="${basket[i].id}" data-color="${basket[i].color}">
-      <div class="cart__item__img">
-        <img src="${kanapData.imageUrl}" alt="${kanapData.altTxt}">
-      </div>
-      <div class="cart__item__content">
-                  <div class="cart__item__content__description">
-                    <h2>${kanapData.name}</h2>
-                    <p>${basket[i].color}</p>
-                    <p>${kanapData.price} €</p>
-                  </div>
-                  <div class="cart__item__content__settings">
-                    <div class="cart__item__content__settings__quantity">
-                      <p>Quantité : </p>
-<input type="number" class="itemQuantity" 
-name="itemQuantity" min="1" max="100" value="${basket[i].quantity}">
-                    </div>
-                    <div class="cart__item__content__settings__delete">
-                      <p class="deleteItem">Supprimer</p>
-                    </div>
-                  </div>
+  // fetch
+    async function kanapFetch(id) {
+      await fetch(`http://localhost:3000/api/products/` + id)
+        .then((res) => res.json())
+        .then((promise) => {
+          kanapData = promise;
+  
+     });
+    };
+  
+  
+  
+     const kanap = async () => {
+        await kanapFetch(basket[i].id);
+  
+        document.getElementById("cart__items").innerHTML += 
+        `
+  <article class="cart__item" data-id="${basket[i].id}" data-color="${basket[i].color}">
+        <div class="cart__item__img">
+          <img src="${kanapData.imageUrl}" alt="${kanapData.altTxt}">
         </div>
-</article>
-      `
-   };
+        <div class="cart__item__content">
+                    <div class="cart__item__content__description">
+                      <h2>${kanapData.name}</h2>
+                      <p>${basket[i].color}</p>
+                      <p>${kanapData.price} €</p>
+                    </div>
+                    <div class="cart__item__content__settings">
+                      <div class="cart__item__content__settings__quantity">
+                        <p>Quantité : </p>
+  <input type="number" class="itemQuantity" 
+  name="itemQuantity" min="1" max="100" value="${basket[i].quantity}">
+                      </div>
+                      <div class="cart__item__content__settings__delete">
+                        <p class="deleteItem">Supprimer</p>
+                      </div>
+                    </div>
+          </div>
+  </article>
+        `
+     };
+  
+     kanap();
+     
+  
+    // fin de la modif du DOM
+    if (i == basket.length - 1){
 
-   kanap();
+      let deleteItem = document.getElementsByClassName("deleteItem");
+
+      if (deleteItem.length != 0) {
+
+        for (let j = 0; j < deleteItem.length; j++) {
+          deleteItem[j].addEventListener("click", function (e) {
+   
+            // basket = basket.filter(el => el.id !== iDdeleteItem && el.color !== ColordeleteItem);
+
+            let dI = this.closest("article");
+            divproduit = document.getElementById("cart__items")
+            divproduit.remove();
+
+            console.log(this);
+            //console.log(dI.dataset.id);
+            
+            // on envoie la Suppression dans le LocalStorage
+            // Transformation en format JSON + envoi dans la key produits du LS
+            localStorage.setItem("produits", JSON.stringify(basket));
+
+            //console.log(this);
+            alert("Le canapé à bien été supprimé du panier");
+
+            // Rechargement de la page
+            window.location.href = "cart.html";
 
 
-if (deleteItem.length != 0) {
+          });
+        };
+      }
+        /*else{
+            console.log("alert3");
+    
+        }*/ }
 
-        let iDdeleteItem = basket[i].id;
-        let ColordeleteItem = basket[i].color;
-        //console.log(iDdeleteItem);
-        //console.log(ColordeleteItem);
-        basket = basket.filter(el => el.id !== iDdeleteItem && el.color !== ColordeleteItem);
+  }// / const kanap
 
-        let dI = deleteItem.closest("article").remove();
-        alert("Produit Supprimé");
-
-      })};
-};
-*/
-
+  };// / boucle for basket
 
 //----------------------------------- Calcul du prix total des produits dans le panier ------------------------------------------------
-
+/*
 // Variable prix total
 let CalculPrixTotal = [];
 
 
 // Aller chercher les prix des produits dans le panier
 for (let i = 0; i < kanapData.length; i++) {
-  console.log(kanapData);
+  let prixProduitPanier = kanapData.price;
+
+
+// Mettre les prix dans la variable "CalculPrixTotal"
+//La méthode push() ajoute un ou plusieurs éléments à la fin d'un tableau et retourne la nouvelle taille du tableau.
+
+  CalculPrixTotal.push(prixProduitPanier);
+
 };
+
+//Addition des prix qu'il y a dans le tableau de la variable "CalculPrixTotal"
+const reducer = (accumulator, currentValue) => accumulator + currentValue; 
+const prixTotal = CalculPrixTotal.reduce(reducer,0);
+
+*/
+
+
+
 
 
 //
