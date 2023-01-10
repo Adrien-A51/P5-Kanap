@@ -23,4 +23,4 @@ function Produit(products) {
   }
 }
 
-// + Concaténation 
+// += Concaténation 
