@@ -33,25 +33,17 @@ let product_colors = document.querySelector("#colors");
 
 
 
-
-
-// créer une alerte pour l'Utilisateur
-//alert("Bonjour")
-
 // Envoi des produits sélectionnés dans le LocalStorage au clic sur le bouton Ajouter au panier
 let btn = document.querySelector("#addToCart");
 
 // Événement click
 btn.addEventListener("click", () => {
   let couleurChoisie = document.querySelector("#colors").value; // récupère la couleur sélectionnée
-
   let quantity = document.querySelector("#quantity").value; // récupère de la quantité saisie
   
 
   
   if (
-    quantity == undefined ||      //  si la quantité n'est pas défini
-    quantity == null ||           //  si la quantité est égale à null (fausse)
     quantity < 1 ||               //  si la quantité est inférieure à 1
     quantity > 100 ||             //  si la quantité est supérieure à 100
     couleurChoisie === "" ||      //  si la couleur n'a pas été choisie
@@ -72,9 +64,7 @@ btn.addEventListener("click", () => {
     quantity: Number(quantity),
     color: couleurChoisie,
   };
-
-    
-
+  
 //
 // Le Local Storage
 // Stocker les valeurs dans le Local Storage
@@ -92,13 +82,7 @@ if (basket) {
   localStorage.setItem("produits", JSON.stringify(basket));
 }
 
-// S'il n'y a pas de produit d'enregistré dans le Local Storage
-else{
-  basket = [];
-  basket.push(newProduct);
-  localStorage.setItem("produits", JSON.stringify(basket));
 
-}
 
 }});
 
