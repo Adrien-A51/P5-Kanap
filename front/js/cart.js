@@ -247,18 +247,16 @@ function disableSubmit(disabled) {
     .getElementById("firstName")
     .addEventListener("input", function(e) {
       //A-Z et a-z => toutes les lettres entre a et z   3,10 => minimum 3 crt et maximum 10 crt
-    if (/^[A-Za-z]{3,10}$/.test(e.target.value)) {
-      firstNameError().innerText = "Le Prénom est valide";
+  if (/^[A-Za-z]{3,10}$/.test(firstName)) {
+    firstNameError().innerText = "Le Prénom est valide";
       disableSubmit(false);
     } else {
       firstNameError().innerText = 
       "Le Prénom doit contenir uniquement des lettres et entre 3 et 10 caractères";
       disableSubmit(true);
     }
-  });
-
+};
   
-  // vérif nom
   document
     .getElementById("lastName")
     .addEventListener("input", function(e) {
@@ -300,8 +298,6 @@ function disableSubmit(disabled) {
     }
   });
 
-  
-  // vérif email
   document
     .getElementById("email")
     .addEventListener("input", function(e) {
@@ -315,7 +311,6 @@ function disableSubmit(disabled) {
     }
   });
 
-// };// function de vérification
 
 // addEventListener click btn_commander
 btn_commander.addEventListener('click', (event) => {
