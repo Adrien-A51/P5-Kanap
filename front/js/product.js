@@ -45,14 +45,14 @@ btn.addEventListener("click", () => {
   
   // fonction qui vérifie que si un autre produit avec la même couleur est ajouté au panier seul la quantité s'ajoute
 
-  if (couleurChoisie === ""){              //  si la couleur n'a pas été choisie
-    alert("Veuillez choisir une couleur"); // le message d'alerte s'affiche
+  if (couleurChoisie === "" || quantity < 1 || quantity > 100){              //  si la couleur n'a pas été choisie
+    alert("Veuillez choisir une couleur et une quantité comprise entre 1 et 100"); // le message d'alerte s'affiche
   }
-
+/*
   if (quantity < 1 || quantity > 100){      //  si la quantité est inférieure à 1 ou supérieure à 100
   alert("Veuillez choisir une quantité comprise entre 1 et 100"); // le message d'alerte s'affiche
   }
-  
+  */
   else {
     alert("votre produit à été ajouté au panier"); // sinon le message de confirmation s'affiche
     window.location.href = "cart.html"; //renvoie sur la page panier (cart.html)

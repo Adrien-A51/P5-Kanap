@@ -340,6 +340,12 @@ let city_ok = verif_city();
 let email_ok = verif_email();
 alert("ok"+ firstName_ok + lastName_ok + address_ok + city_ok + email_ok);
 
+if (basket === null) {
+  alert("Le panier est vide")
+} else {
+  alert("le panier n'est pas vide")
+}
+
 });// FIN addEventListener click btn_commander
 
 
