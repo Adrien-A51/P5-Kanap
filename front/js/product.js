@@ -83,7 +83,7 @@ btn.addEventListener("click", () => {
   // on enregistre le nouvel element et on additionne la qty dans le LS/
   //STRINGIFY = on récupère sous forme de chaine de Caractère
   localStorage.setItem("produits", JSON.stringify(basket)); 
-  
+  console.log(basket)
 
 
 
