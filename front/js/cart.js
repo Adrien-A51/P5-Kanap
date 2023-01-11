@@ -228,95 +228,117 @@ function emailError() {
   return document.getElementById("emailErrorMsg");
 }
 
-function disableSubmit(disabled) {
-  if (disabled) {
-    document
-      .getElementById("order")
-      .setAttribute("disabled", true);
-  } else {
-    document
-      .getElementById("order")
-      .removeAttribute("disabled");
-  }
-}
-
-// function verification() {
-  
-// vérif prénom
-  document
-    .getElementById("firstName")
-    .addEventListener("input", function(e) {
-      //A-Z et a-z => toutes les lettres entre a et z   3,10 => minimum 3 crt et maximum 10 crt
+//// => vérification du champ Prénom
+function verif_firstName() {
+  firstName = document.getElementById("firstName").value
+  //A-Z et a-z => toutes les lettres entre a et z   3,10 => minimum 3 crt et maximum 10 crt
   if (/^[A-Za-z]{3,10}$/.test(firstName)) {
     firstNameError().innerText = "Le Prénom est valide";
-      disableSubmit(false);
-    } else {
-      firstNameError().innerText = 
-      "Le Prénom doit contenir uniquement des lettres et entre 3 et 10 caractères";
-      disableSubmit(true);
-    }
+    return true; 
+  } else {
+    firstNameError().innerText = 
+    "Le Prénom doit contenir uniquement des lettres et entre 3 et 10 caractères";
+    return false; 
+  }
 };
   
   document
-    .getElementById("lastName")
+    .getElementById("firstName")
     .addEventListener("input", function(e) {
-    if (/^[A-Za-z]{3,15}$/.test(e.target.value)) {
+      verif_firstName();
+  });
+//// <=
+
+//// => vérification du champ Nom
+  function verif_lastName() {
+    lastName = document.getElementById("lastName").value
+    if (/^[A-Za-z]{3,15}$/.test(lastName)) {
       lastNameError().innerText = "Le Nom est valide";
-      disableSubmit(false);
+      return true; 
     } else {
       lastNameError().innerText = 
       "Le Nom doit contenir uniquement des lettres et entre 3 et 10 caractères";
-      disableSubmit(true);
+      return false; 
     }
-  });
-  
-  // vérif adresse
+  }
+
   document
-    .getElementById("address")
+    .getElementById("lastName")
     .addEventListener("input", function(e) {
-    if (/^[a-zA-Z0-9\s,.'-]{6,20}$/.test(e.target.value)) {
+      verif_lastName();
+  });
+//// <=
+
+//// => vérification du champ Adresse
+  function verif_address(){
+    address = document.getElementById("address").value
+    if (/^[a-zA-Z0-9\s,.'-]{6,20}$/.test(address)) {
       addressError().innerText = "L'adresse est valide";
-      disableSubmit(false);
+      return true; 
     } else {
       addressError().innerText = 
       "L'adresse doit contenir d'abord un nombre et ensuite uniquement des lettres et entre 5 et 20 caractères";
-      disableSubmit(true);
+      return false; 
     }
-  });
-  
-  // vérif ville
+  };
+
   document
-    .getElementById("city")
+    .getElementById("address")
     .addEventListener("input", function(e) {
-    if (/^[a-zA-Z0-9\s,.'-]{7,20}$/.test(e.target.value)) {
+      verif_address();
+  });
+//// <=
+  
+//// => vérification du champ Ville
+  function verif_city() {
+    city = document.getElementById("city").value
+    if (/^[a-zA-Z0-9\s,.'-]{7,20}$/.test(city)) {
       cityError().innerText = "La ville est valide";
-      disableSubmit(false);
+      return true; 
     } else {
       cityError().innerText = 
       "La ville doit être au format 75000 Paris";
-      disableSubmit(true);
+      return false; 
     }
+  };
+
+  document
+    .getElementById("city")
+    .addEventListener("input", function(e) {
+    verif_city();
   });
+//// <=
+
+//// => vérification du champ Email  
+  function verif_email() {
+    email = document.getElementById("email").value
+    if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/i.test(email)) {
+      emailError().innerText = "L'adresse email est valide";
+      return true; 
+    } else {
+      emailError().innerText = 
+      "L'adresse e-mail doit être au format email@domain.com";
+      return false; 
+    }
+  };
 
   document
     .getElementById("email")
     .addEventListener("input", function(e) {
-    if (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/i.test(e.target.value)) {
-      emailError().innerText = "L'adresse email est valide";
-      disableSubmit(false);
-    } else {
-      emailError().innerText = 
-      "L'adresse e-mail doit être au format email@domain.com";
-      disableSubmit(true);
-    }
+    verif_email();
   });
-
+//// <=
 
 // addEventListener click btn_commander
 btn_commander.addEventListener('click', (event) => {
   event.preventDefault(event);
 
-alert("ok");
+let firstName_ok = verif_firstName();
+let lastName_ok = verif_lastName();
+let address_ok = verif_address();
+let city_ok = verif_city();  
+let email_ok = verif_email();
+alert("ok"+ firstName_ok + lastName_ok + address_ok + city_ok + email_ok);
 
 });// FIN addEventListener click btn_commander
 
