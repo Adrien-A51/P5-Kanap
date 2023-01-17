@@ -43,8 +43,6 @@ btn.addEventListener("click", () => {
   // Déclaration de la variable basket dans laquelle on met les keys et les valeurs qui sont dans le LocalStorage 
   let basket = JSON.parse(localStorage.getItem("produits")); 
   
-  // fonction qui vérifie que si un autre produit avec la même couleur est ajouté au panier seul la quantité s'ajoute
-
   if (couleurChoisie === "" || quantity < 1 || quantity > 100){              //  si la couleur n'a pas été choisie
     alert("Veuillez choisir une couleur et une quantité comprise entre 1 et 100"); // le message d'alerte s'affiche
   }
@@ -83,9 +81,6 @@ btn.addEventListener("click", () => {
   // on enregistre le nouvel element et on additionne la qty dans le LS/
   //STRINGIFY = on récupère sous forme de chaine de Caractère
   localStorage.setItem("produits", JSON.stringify(basket)); 
-  console.log(basket)
-
-
 
 }});// fin addEventListener click ajt au panier
 
