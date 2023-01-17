@@ -42,18 +42,17 @@ btn.addEventListener("click", () => {
 
   // Déclaration de la variable basket dans laquelle on met les keys et les valeurs qui sont dans le LocalStorage 
   let basket = JSON.parse(localStorage.getItem("produits")); 
-  
+    
   if (couleurChoisie === "" || quantity < 1 || quantity > 100){              //  si la couleur n'a pas été choisie
     alert("Veuillez choisir une couleur et une quantité comprise entre 1 et 100"); // le message d'alerte s'affiche
   }
-/*
-  if (quantity < 1 || quantity > 100){      //  si la quantité est inférieure à 1 ou supérieure à 100
-  alert("Veuillez choisir une quantité comprise entre 1 et 100"); // le message d'alerte s'affiche
-  }
-  */
+
   else {
     alert("votre produit à été ajouté au panier"); // sinon le message de confirmation s'affiche
     window.location.href = "cart.html"; //renvoie sur la page panier (cart.html)
+
+    // Met à jour le LocalStorage avec les produits restants
+    localStorage.setItem("produits", JSON.stringify(basket));
 
   // création nouveau produit avec les 3 références
   let newProduct = {
@@ -67,7 +66,7 @@ btn.addEventListener("click", () => {
   let found = basket.find(
     // element => id et couleur ajouté au panier est Identique au id et couleur qui est déjà présent dans le panier
     (element) => element.id == product_id && element.color == couleurChoisie
-  );
+    );
   // si found est inégale a undefined
   if (found != undefined) {
 
@@ -80,7 +79,8 @@ btn.addEventListener("click", () => {
   }
   // on enregistre le nouvel element et on additionne la qty dans le LS/
   //STRINGIFY = on récupère sous forme de chaine de Caractère
-  localStorage.setItem("produits", JSON.stringify(basket)); 
+  localStorage.setItem("produits", JSON.stringify(basket));
+
 
 }});// fin addEventListener click ajt au panier
 

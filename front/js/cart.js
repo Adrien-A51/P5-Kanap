@@ -333,6 +333,13 @@ function verif_firstName() {
 btn_commander.addEventListener('click', (event) => {
   event.preventDefault(event);
 
+  if (basket === null) {
+    alert("Le panier est vide")
+  } else {
+    alert("le panier n'est pas vide")
+  }
+  
+
 let firstName_ok = verif_firstName();
 let lastName_ok = verif_lastName();
 let address_ok = verif_address();
@@ -340,12 +347,56 @@ let city_ok = verif_city();
 let email_ok = verif_email();
 alert("ok"+ firstName_ok + lastName_ok + address_ok + city_ok + email_ok);
 
-if (basket === null) {
-  alert("Le panier est vide")
-} else {
-  alert("le panier n'est pas vide")
-}
+  //tableau contact
+  contactArray = {
+    firstName: document.getElementById("firstName").value,
+    lastName: document.getElementById("lastName").value,
+    address: document.getElementById("address").value,
+    email: document.getElementById("email").value,
+    city: document.getElementById("city").value,
+  };
+  
+envoyer();
 
 });// FIN addEventListener click btn_commander
+
+function envoyer() {
+  let basket = JSON.parse(localStorage.getItem("produits"));
+
+ if (basket !== null &&
+    verif_firstName() &&
+    verif_lastName() &&
+    verif_address() &&
+    verif_city() &&
+    verif_email()
+  ) {
+    console.log("ok", basket);
+
+    fetch("http://localhost:3000/api/products/order",{
+      method: "POST",
+      body: JSON.stringify({
+          contactArray,
+          products:  basket, 
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }) // fin fetch
+
+    .then((response) => {
+      return response.json();
+    })
+    .then((server) => {
+      const order_Id = server.order_Id;
+
+      if (order_Id != "") {
+        // Si l'orderId a bien été récupéré, on redirige l'utilisateur vers la page de Confirmation
+        location.href = "confirmation.html?orderid=" + order_Id;
+      }
+    });
+ } // fin du if
+
+} // fin fonction envoyer
 
 ///*****************************************************************************************************************///
