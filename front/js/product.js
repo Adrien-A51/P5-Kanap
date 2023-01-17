@@ -40,9 +40,9 @@ btn.addEventListener("click", () => {
   let couleurChoisie = document.querySelector("#colors").value; // récupère la couleur sélectionnée
   let quantity = document.querySelector("#quantity").value; // récupère de la quantité saisie
 
-  // Déclaration de la variable basket dans laquelle on met les keys et les valeurs qui sont dans le LocalStorage 
-  let basket = JSON.parse(localStorage.getItem("produits")); 
-    
+  //=>création du panier ds le LS encore vide/soit tab  soit tab vide/ PARSE = sous forme d'objet
+  let basket = JSON.parse(localStorage.getItem("produits")) || []; 
+  
   if (couleurChoisie === "" || quantity < 1 || quantity > 100){              //  si la couleur n'a pas été choisie
     alert("Veuillez choisir une couleur et une quantité comprise entre 1 et 100"); // le message d'alerte s'affiche
   }

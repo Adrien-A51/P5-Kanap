@@ -391,7 +391,7 @@ function envoyer() {
       const order_Id = server.order_Id;
 
       if (order_Id != "") {
-        // Si l'orderId a bien été récupéré, on redirige l'utilisateur vers la page de Confirmation
+        // Si l'orderId a été récupéré, on redirige l'utilisateur vers la page de Confirmation
         location.href = "confirmation.html?orderid=" + order_Id;
       }
     });
