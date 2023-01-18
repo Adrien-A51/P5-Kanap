@@ -332,20 +332,20 @@ function verif_firstName() {
 // addEventListener click btn_commander
 btn_commander.addEventListener('click', (event) => {
   event.preventDefault(event);
-
+/*
   if (basket === null) {
     alert("Le panier est vide")
   } else {
     alert("le panier n'est pas vide")
   }
-  
+*/
 
 let firstName_ok = verif_firstName();
 let lastName_ok = verif_lastName();
 let address_ok = verif_address();
 let city_ok = verif_city();  
 let email_ok = verif_email();
-alert("ok"+ firstName_ok + lastName_ok + address_ok + city_ok + email_ok);
+//alert("ok"+ firstName_ok + lastName_ok + address_ok + city_ok + email_ok);
 
   //tableau contact
   contactArray = {
@@ -399,4 +399,4 @@ function envoyer() {
 
 } // fin fonction envoyer
 
-///*****************************************************************************************************************///
+///*********************************************************************************************///
