@@ -26,6 +26,20 @@ const panierVide = `
 }
 
 else {
+
+if (basket.length == 0) {
+// variable qui affiche le panier vide
+const panierVide = `
+<div class="panier-vide">
+<div> Le panier est vide</div>
+</div>
+`;
+basket_container.innerHTML = panierVide; 
+    }
+    else {
+  
+  
+
 // si le panier n'est pas vide -> affiche les produits dans le Local Storage
 let structureProduitPanier = "";
 
@@ -189,6 +203,7 @@ let input_quantity = document.querySelectorAll(".cart__item");
 
   };// / boucle for pour ajouter les produits aux panier
   };// / else si le panier n'est pas vide
+}
 
 ///*****************************************************************************************************************///
 
@@ -332,13 +347,18 @@ function verif_firstName() {
 // addEventListener click btn_commander
 btn_commander.addEventListener('click', (event) => {
   event.preventDefault(event);
-/*
+
   if (basket === null) {
-    alert("Le panier est vide")
+    alert("Le panier n'existe pas")
   } else {
-    alert("le panier n'est pas vide")
+    if (basket.length == 0) {
+      alert("Le panier existe mais il est vide")
+    }
+    else {
+      alert("le panier n'est pas vide")
+    }
   }
-*/
+
 
 let firstName_ok = verif_firstName();
 let lastName_ok = verif_lastName();
@@ -348,7 +368,7 @@ let email_ok = verif_email();
 //alert("ok"+ firstName_ok + lastName_ok + address_ok + city_ok + email_ok);
 
   //tableau contact
-  contactArray = {
+  contact = {
     firstName: document.getElementById("firstName").value,
     lastName: document.getElementById("lastName").value,
     address: document.getElementById("address").value,
@@ -362,6 +382,7 @@ envoyer();
 
 function envoyer() {
   let basket = JSON.parse(localStorage.getItem("produits"));
+ let products = basket; 
 
  if (basket !== null &&
     verif_firstName() &&
@@ -374,27 +395,35 @@ function envoyer() {
 
     fetch("http://localhost:3000/api/products/order",{
       method: "POST",
-      body: JSON.stringify({
-          contactArray,
-          products:  basket, 
-      }),
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        'Accept': "application/json",
+        "Content-type": "application/json",
       },
+      body: JSON.stringify({
+          contact,
+          products 
+      })
+    
     }) // fin fetch
 
     .then((response) => {
+      console.log(response);
       return response.json();
     })
     .then((server) => {
+      console.log(server);
       const order_Id = server.order_Id;
 
       if (order_Id != "") {
         // Si l'orderId a été récupéré, on redirige l'utilisateur vers la page de Confirmation
         location.href = "confirmation.html?orderid=" + order_Id;
       }
+    })
+    /*
+    .catch((error) =>{
+      console.log(error);
     });
+    */
  } // fin du if
 
 } // fin fonction envoyer
