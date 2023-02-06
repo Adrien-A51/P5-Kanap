@@ -8,7 +8,7 @@ fetch(`http://localhost:3000/api/products`)
     Produit(products);
   });
 
-//Création des élèments + rajout des données dans ces balises
+//Création et affichage des élèments + rajout des données dans ces balises
 function Produit(products) {
   
   for (let i = 0; i < products.length; i++) {
@@ -23,4 +23,4 @@ function Produit(products) {
   }
 }
 
-// += Concaténation 
+// += Concaténation => "attacher ensemble"

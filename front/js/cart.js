@@ -37,7 +37,6 @@ const panierVide = `
 `;
 basket_container.innerHTML = panierVide; 
     }
-    else {
 
 
 
@@ -101,19 +100,28 @@ for (let i = 0; i < basket.length; i++ ) {
 
 ///******************************  Calcul du nombre et du prix total des articles   ********************************///
 
+// Sélection de l'id totalQuantity qui est égal à 0
+document.getElementById("totalQuantity").textContent = 0;
 // Calcul du nombre total d'article présents dans le panier
 // Sélection de l'id totalQuantity qui est égal au nombre 0 auquel on ajoute les quantités de chaque produit les unes après les autres
 document.getElementById("totalQuantity").textContent = Number(document.getElementById("totalQuantity").textContent) + Number(basket[i].quantity);
         
+// Sélection de l'id totalPrice qui est égal à 0
+document.getElementById("totalPrice").textContent = 0;
 // Calcul du prix total des articles présents dans le panier
 // Sélection de l'id totalPrice qui est égal au nombre 0 auquel on ajoute les prix de chaque produit les unes après les autres
 document.getElementById("totalPrice").textContent = Number(document.getElementById("totalPrice").textContent) + Number(basket[i].quantity) * Number(kanapData.price);
         
+
+
 ///*****************************************************************************************************************///
+
 
 
 ///*****************  Modification de la quantité et calcul du nouveau prix total des articles   *******************///
   
+
+
 // Sélection de chaque article avec la classe cart__item où l'on modifie la quantité
 let input_quantity = document.querySelectorAll(".cart__item");
 
@@ -166,10 +174,15 @@ let input_quantity = document.querySelectorAll(".cart__item");
     });
   });
 
+
+
   ///*****************************************************************************************************************///
 
 
+
   ///********************************  Bouton deleteItem qui supprime l'article souhaité  ****************************///
+
+
 
         if (i == basket.length - 1){
 
@@ -212,10 +225,15 @@ let input_quantity = document.querySelectorAll(".cart__item");
   };// / else si le panier n'est pas vide
 }
 
+
+
 ///*****************************************************************************************************************///
 
 
+
 ///************************************  Vérification de la validité du formulaire  ********************************///
+
+
 
 // Récupération des elements
 let first_Name = document.querySelector('#firstName');
@@ -356,13 +374,10 @@ btn_commander.addEventListener('click', (event) => {
   event.preventDefault(event);
 
   if (basket === null) {
-    alert("Le panier n'existe pas")
+    alert("Le panier est vide")
   } else {
     if (basket.length == 0) {
-      alert("Le panier existe mais il est vide")
-    }
-    else {
-      alert("le panier n'est pas vide")
+      alert("Le panier est vide")
     }
   }
 
@@ -389,7 +404,15 @@ envoyer();
 
 function envoyer() {
   let basket = JSON.parse(localStorage.getItem("produits"));
- let products = basket; 
+  // crée un tableau pour la commande
+  let products = [];
+
+// va chercher les infos du panier pour la commande
+for (let i = 0; i < basket.length; i++ ) {
+  products.push(basket[i].id)
+
+
+}
 
  if (basket !== null &&
     verif_firstName() &&
@@ -403,12 +426,11 @@ function envoyer() {
     fetch("http://localhost:3000/api/products/order",{
       method: "POST",
       headers: {
-        'Accept': "application/json",
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
           contact,
-          products 
+          products
       })
     
     }) // fin fetch
@@ -419,18 +441,18 @@ function envoyer() {
     })
     .then((server) => {
       console.log(server);
-      const order_Id = server.order_Id;
+      const order_Id = server.orderId;
 
       if (order_Id != "") {
         // Si l'orderId a été récupéré, on redirige l'utilisateur vers la page de Confirmation
         location.href = "confirmation.html?orderid=" + order_Id;
       }
     })
-    /*
-    .catch((error) =>{
+  
+    .catch((error) => {
       console.log(error);
     });
-    */
+  
  } // fin du if
 
 } // fin fonction envoyer

@@ -6,21 +6,21 @@ let product_id = params.get('id');
 fetch(`http://localhost:3000/api/products/${product_id}`)
 .then((response) => response.json()) 
 .then((product) => {console.log(product);
-// appel de la fonction displayProductInfos
+// appel de la fonction PageProductInfos
 PageProductInfos(product)
 });// .then product
 
 // Afficher les informations du produit avec une boucle for pour les couleurs
 function PageProductInfos(product) {
 
-// Déclaration des selectors
+// Déclaration des selecteurs
 let product_image = document.querySelector(".item__img");
 let product_title = document.querySelector("#title");
 let product_price = document.querySelector("#price");
 let product_description = document.querySelector("#description");
 let product_colors = document.querySelector("#colors");
 
-
+  // Affichage dynamique des informations d'un produit
   product_image.innerHTML += `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
   product_title.innerHTML += `<h1 id="title"> ${product.name} </h1>`;
   product_price.innerHTML += `<span id="price"> ${product.price} </span>`;
@@ -31,11 +31,10 @@ let product_colors = document.querySelector("#colors");
   }
 };
 
-
 // Envoi des produits sélectionnés dans le LocalStorage au clic sur le bouton Ajouter au panier
 let btn = document.querySelector("#addToCart");
 
-// Événement click
+// Événement click ajt au panier
 btn.addEventListener("click", () => {
   let couleurChoisie = document.querySelector("#colors").value; // récupère la couleur sélectionnée
   let quantity = document.querySelector("#quantity").value; // récupère de la quantité saisie
@@ -43,8 +42,8 @@ btn.addEventListener("click", () => {
   // création du panier ds le LS encore vide/soit tab  soit tab vide/ PARSE = sous forme d'objet
   let basket = JSON.parse(localStorage.getItem("produits")) || []; 
 
-  if (couleurChoisie === "" || quantity < 1 || quantity > 100){              //  si la couleur n'a pas été choisie
-    alert("Veuillez choisir une couleur et une quantité comprise entre 1 et 100"); // le message d'alerte s'affiche
+  if (couleurChoisie === "" || quantity < 1 || quantity > 100){ //  si la couleur n'a pas été choisie et que la qté n'est pas comprise entre min 1 et max 100
+    alert("Veuillez choisir une couleur et une quantité comprise entre min 1 et max 100"); // le message d'alerte s'affiche
   }
 
   else {
@@ -60,7 +59,6 @@ btn.addEventListener("click", () => {
     quantity: Number(quantity),
     color: couleurChoisie,
   };
-
 
   // Rechercher si un produit est déja présentnt dans le LocalStorage
   let found = basket.find(
@@ -80,6 +78,5 @@ btn.addEventListener("click", () => {
   // on enregistre le nouvel element et on additionne la qty dans le LS/
   //STRINGIFY = on récupère sous forme de chaine de Caractère
   localStorage.setItem("produits", JSON.stringify(basket));
-
 
 }});// fin addEventListener click ajt au panier
