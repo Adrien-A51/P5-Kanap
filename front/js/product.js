@@ -83,8 +83,3 @@ btn.addEventListener("click", () => {
 
 
 }});// fin addEventListener click ajt au panier
-
-// JSON dans le Local Storage
-// exemple d'un produit
-// produits: [{"id":"77711f0e466b4ddf953f677d30b0efc9","quantity":1,"color":"Navy"}];
-

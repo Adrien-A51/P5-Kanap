@@ -3,14 +3,13 @@ let basket = JSON.parse(localStorage.getItem("produits"));
 // JSON.parse c'est pour convertir les données au format JSON qui sont dans le Local Storage en objet js
 
 //----------------------------------- Afficher les produits dans le panier ------------------------------------------------
-// Sélection de la classe où Mettre le code html
+// Sélection de la classe où mettre le code html
 let basket_container = document.querySelector("#cart__items"); 
 
-// Sélection de l'id totalQuantity qui est égal à 0
-document.getElementById("totalQuantity").textContent = 0;
 
-// Sélection de l'id totalPrice qui est égal à 0
-document.getElementById("totalPrice").textContent = 0;
+
+///******************************  Gestion du panier lorsque il es vide (ou null)   ********************************///
+
 
 
 // si le panier est vide -> affiche le panier est vide
@@ -27,6 +26,8 @@ const panierVide = `
 
 else {
 
+// si le panier a une quantité égale a 0 -> affiche le panier est vide
+// basket.length == 0 - basket est strictement égal à 0 en quantité
 if (basket.length == 0) {
 // variable qui affiche le panier vide
 const panierVide = `
@@ -37,9 +38,15 @@ const panierVide = `
 basket_container.innerHTML = panierVide; 
     }
     else {
-  
-  
 
+
+
+///*****************************************************************************************************************///
+
+
+    // sinon si le panier n'est pas vide
+    else {
+  
 // si le panier n'est pas vide -> affiche les produits dans le Local Storage
 let structureProduitPanier = "";
 
