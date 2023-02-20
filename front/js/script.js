@@ -22,5 +22,3 @@ function Produit(products) {
     </a>`;
   }
 }
-
-// += Concaténation => "attacher ensemble"
