@@ -20,10 +20,8 @@ const panierVide = `
     <div class="panier-vide">
     <div> Le panier est vide</div>
     </div>
-
-    <p>Total (<span id="totalQuantity">0</span> articles) : <span id="totalPrice">0</span> €</p>
-
 `;
+
   basket_container.innerHTML = panierVide; 
 }
 
@@ -103,19 +101,13 @@ for (let i = 0; i < basket.length; i++ ) {
 
 ///******************************  Calcul du nombre et du prix total des articles   ********************************///
 
-// Sélection de l'id totalQuantity qui est égal à 0
-document.getElementById("totalQuantity").textContent = 0;
-// Calcul du nombre total d'article présents dans le panier
-// Sélection de l'id totalQuantity qui est égal au nombre 0 auquel on ajoute les quantités de chaque produit les unes après les autres
-document.getElementById("totalQuantity").textContent = Number(document.getElementById("totalQuantity").textContent) + Number(basket[i].quantity);
-        
-// Sélection de l'id totalPrice qui est égal à 0
-document.getElementById("totalPrice").textContent = 0;
-// Calcul du prix total des articles présents dans le panier
-// Sélection de l'id totalPrice qui est égal au nombre 0 auquel on ajoute les prix de chaque produit les unes après les autres
-document.getElementById("totalPrice").textContent = Number(document.getElementById("totalPrice").textContent) + Number(basket[i].quantity) * Number(kanapData.price);
-        
 
+// Sélection de l'id totalQuantity qui est égal au nombre 0 auquel on ajoute les quantités de chaque produit les unes après les autres
+totalQuantity = document.getElementById("totalQuantity").textContent = Number(document.getElementById("totalQuantity").textContent) + Number(basket[i].quantity);
+
+
+// Sélection de l'id totalPrice qui est égal au nombre 0 auquel on ajoute les prix de chaque produit les unes après les autres
+totalPrice = document.getElementById("totalPrice").textContent = Number(document.getElementById("totalPrice").textContent) + Number(basket[i].quantity) * Number(kanapData.price);
 
 ///*****************************************************************************************************************///
 
@@ -376,13 +368,10 @@ function verif_firstName() {
 btn_commander.addEventListener('click', (event) => {
   event.preventDefault(event);
 
-  if (basket === null) {
-    alert("Le panier est vide")
+  if (basket === null || basket.length == 0) {
+    alert("Veuillez ajouter un produit dans le panier pour valider la commande")
   } else {
-    if (basket.length == 0) {
-      alert("Le panier est vide")
-    }
-  }
+
 
 
 let firstName_ok = verif_firstName();
@@ -390,7 +379,7 @@ let lastName_ok = verif_lastName();
 let address_ok = verif_address();
 let city_ok = verif_city();  
 let email_ok = verif_email();
-//alert("ok"+ firstName_ok + lastName_ok + address_ok + city_ok + email_ok);
+
 
   //tableau contact
   contact = {
@@ -402,7 +391,7 @@ let email_ok = verif_email();
   };
   
 envoyer();
-
+  }
 });// FIN addEventListener click btn_commander
 
 function envoyer() {
