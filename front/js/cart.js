@@ -20,6 +20,9 @@ const panierVide = `
     <div class="panier-vide">
     <div> Le panier est vide</div>
     </div>
+
+    <p>Total (<span id="totalQuantity">0</span> articles) : <span id="totalPrice">0</span> €</p>
+
 `;
   basket_container.innerHTML = panierVide; 
 }
